@@ -1,0 +1,21 @@
+.login-pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  border-radius: 1px;
+  .form-group {
+    padding-bottom: 30px;
+    .label-email {
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    .label-password {
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    .btn btn-primary {
+        border: 1px solid red;
+    }
+  }
+}
