@@ -1,6 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DeleteConfirmationModal = ({ show, onCancel, onDelete }) => {
+  const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    try {
+      await onDelete(); // awaiting the deletion operation
+      navigate('/product'); // navigate to products page after deletion
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   if (!show) {
     return null;
   }
@@ -22,7 +34,7 @@ const DeleteConfirmationModal = ({ show, onCancel, onDelete }) => {
             <button type="button" className="btn btn-secondary" onClick={onCancel}>
               Cancel
             </button>
-            <button type="button" className="btn btn-danger" onClick={onDelete}>
+            <button type="button" className="btn btn-danger" onClick={handleDelete}>
               Delete
             </button>
           </div>
