@@ -8,16 +8,18 @@ const AddProductModal = ({ showModal, setShowModal }) => {
   const [productDescription, setProductDescription] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productCategory, setProductCategory] = useState('');
+  const [message, setMessage] = useState('');
 
   const closeModal = () => {
     setShowModal(false);
+    setMessage('');  // Reset the message when closing the modal
   };
 
   const handleAddProduct = async (event) => {
     event.preventDefault();
 
     if (!productName || !productUrl || !productDescription || !productPrice || !productCategory) {
-      alert("Please fill all the fields");
+      setMessage("Please fill all the fields");
       return;
     }
 
@@ -38,16 +40,17 @@ const AddProductModal = ({ showModal, setShowModal }) => {
       };
 
       await axios.post('http://localhost:7000/api/products/', productData, config);
-      alert('Product added successfully');
+      setMessage('Product added successfully');
       setProductName('');
       setProductUrl('');
       setProductDescription('');
       setProductPrice('');
       setProductCategory('');
       closeModal();
+      window.location.reload();
     } catch (error) {
       console.error('Error adding product: ', error);
-      alert('Error adding product');
+      setMessage('Error adding product');
     }
   };
 
@@ -59,6 +62,7 @@ const AddProductModal = ({ showModal, setShowModal }) => {
     <div className="modal">
       <div className="modal-content">
         <h5 className="product-name">Add Product</h5>
+        {message && <p>{message}</p>}
         <form onSubmit={handleAddProduct}>
           <div className="form-group">
             <label className="form-label" htmlFor="productFormControlInput2">Product image URL</label>
